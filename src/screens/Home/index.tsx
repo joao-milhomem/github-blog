@@ -1,19 +1,26 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Header } from '../../components/Header'
-import { ProfileComponent, ProfileContent } from './style'
+import {
+	Post,
+	PostsComponent,
+	PostSearchForm,
+	PostsList,
+	Profile,
+	ProfileContent,
+} from './style'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import {
 	faArrowUpRightFromSquare,
 	faBuilding,
 	faUserGroup,
 } from '@fortawesome/free-solid-svg-icons'
-import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
 export const Home = () => {
 	return (
 		<div>
 			<Header />
 
-			<ProfileComponent>
+			<Profile>
 				<img src="https://github.com/joaomilhomem.png" alt="" />
 
 				<ProfileContent className="profile-content">
@@ -30,9 +37,9 @@ export const Home = () => {
 						nec.
 					</p>
 
-					<nav className="badges">
+					<footer className="badges">
 						<span>
-							<FontAwesomeIcon icon={faGithub} />
+							<FontAwesomeIcon icon={faGithub} size="lg" />
 							joaomilhomem
 						</span>
 
@@ -45,9 +52,69 @@ export const Home = () => {
 							<FontAwesomeIcon icon={faUserGroup} />
 							322 seguidores
 						</span>
-					</nav>
+					</footer>
 				</ProfileContent>
-			</ProfileComponent>
+			</Profile>
+
+			<PostsComponent>
+				<header>
+					<h2>Publicações</h2>
+					<small>6 publicações</small>
+				</header>
+
+				<PostSearchForm>
+					<input type="text" placeholder="Busque por publicação" />
+				</PostSearchForm>
+
+				<PostsList>
+					<li>
+						<Post href="">
+							<header>
+								<h3>JavaScript data types and data structures</h3>
+								<time dateTime="2022-01-01">há 1 semana</time>
+							</header>
+
+							<p className="content">
+								Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor
+								odit ipsa facere sequi possimus maxime obcaecati totam non
+								vitae.
+							</p>
+						</Post>
+					</li>
+
+					<li>
+						<Post href="">
+							<header>
+								<h3>JavaScript data types and data structures</h3>
+								<time dateTime="2022-01-01">há 1 dia</time>
+							</header>
+
+							<p className="content">
+								Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor
+								odit ipsa facere sequi possimus maxime obcaecati totam non vitae
+								voluptas. Quibusdam, distinctio quia! Aspernatur asperiores
+								voluptatibus odit nemo, necessitatibus maxime.
+							</p>
+						</Post>
+					</li>
+
+					<li>
+						<Post href="">
+							<header>
+								<h3>JavaScript data types and data structures</h3>
+								<time dateTime="2022-01-01">há 1 dia</time>
+							</header>
+
+							<p className="content">
+								Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor
+								odit ipsa facere sequi possimus maxime obcaecati totam non vitae
+								voluptas. Quibusdam, distinctio quia! Aspernatur asperiores
+								voluptatibus odit nemo, necessitatibus maxime.
+							</p>
+						</Post>
+					</li>
+				</PostsList>
+			</PostsComponent>
 		</div>
 	)
 }

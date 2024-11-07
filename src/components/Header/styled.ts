@@ -6,5 +6,6 @@ export const HeaderComponent = styled.header`
     
     >img {
         width: 100%;
+        display: block;
     }
 `
