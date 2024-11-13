@@ -21,8 +21,8 @@ interface GitProfileProps {
 const Profile = () => {
 	const [gitProfileData, setGitProfileData] = useState({} as GitProfileProps)
 
-	useEffect(() => {
-		fetch('https://api.github.com/users/joaomilhomem')
+	async function fetchGitProfileData() {
+		await fetch('https://api.github.com/users/joaomilhomem')
 			.then((response) => response.json())
 			.then((data) => {
 				const profileData: GitProfileProps = {
@@ -37,6 +37,11 @@ const Profile = () => {
 
 				setGitProfileData(profileData)
 			})
+	}
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(() => {
+		fetchGitProfileData()
 	}, [])
 
 	return (
