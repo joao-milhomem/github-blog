@@ -1,60 +1,13 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Header } from '../../components/Header'
-import {
-	Post,
-	PostsComponent,
-	PostSearchForm,
-	PostsList,
-	Profile,
-	ProfileContent,
-} from './style'
-import { faGithub } from '@fortawesome/free-brands-svg-icons'
-import {
-	faArrowUpRightFromSquare,
-	faBuilding,
-	faUserGroup,
-} from '@fortawesome/free-solid-svg-icons'
+import { Post, PostsComponent, PostSearchForm, PostsList } from './style'
+import Profile from '../../components/Profile'
 
 export const Home = () => {
 	return (
 		<div>
 			<Header />
 
-			<Profile>
-				<img src="https://github.com/joaomilhomem.png" alt="" />
-
-				<ProfileContent className="profile-content">
-					<header>
-						<strong>Joao Paulo Milhomem</strong>
-						<a href="github.com">
-							Github <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-						</a>
-					</header>
-
-					<p className="about-me">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non
-						risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing
-						nec.
-					</p>
-
-					<footer className="badges">
-						<span>
-							<FontAwesomeIcon icon={faGithub} size="lg" />
-							joaomilhomem
-						</span>
-
-						<span>
-							<FontAwesomeIcon icon={faBuilding} />
-							Rocketseat
-						</span>
-
-						<span>
-							<FontAwesomeIcon icon={faUserGroup} />
-							322 seguidores
-						</span>
-					</footer>
-				</ProfileContent>
-			</Profile>
+			<Profile />
 
 			<PostsComponent>
 				<header>
