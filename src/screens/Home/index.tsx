@@ -1,7 +1,7 @@
 import { Header } from '../../components/Header'
 import { PostsComponent, PostSearchForm, PostsList } from './style'
 import Profile from '../../components/Profile'
-import { useEffect, useState } from 'react'
+import { type ChangeEvent, useEffect, useState } from 'react'
 import { Post } from '../../components/Post'
 
 export interface IssueProps {
@@ -13,14 +13,29 @@ export interface IssueProps {
 
 export const Home = () => {
 	const [issues, setIssues] = useState<IssueProps[]>([])
+	const [query, setQuery] = useState('')
+
+	function handleOnChangeQuery(e: ChangeEvent<HTMLInputElement>) {
+		setQuery(e.target.value)
+	}
 
 	useEffect(() => {
+		if (query) {
+			fetch(
+				`https://api.github.com/search/issues?q=${query}%20repo:joao-milhomem/github-blog`,
+			)
+				.then((response) => response.json())
+				.then((data) => setIssues(data.items))
+
+			return
+		}
+
 		fetch(
 			'https://api.github.com/search/issues?q=repo:joao-milhomem/github-blog',
 		)
 			.then((response) => response.json())
 			.then((data) => setIssues(data.items))
-	}, [])
+	}, [query])
 
 	return (
 		<div>
@@ -31,11 +46,18 @@ export const Home = () => {
 			<PostsComponent>
 				<header>
 					<h2>Publicações</h2>
-					<small>{issues.length} publicações</small>
+					<small>
+						{issues.length > 0 ? issues.length : 0}
+						publicações
+					</small>
 				</header>
 
 				<PostSearchForm>
-					<input type="text" placeholder="Busque por publicação" />
+					<input
+						type="text"
+						placeholder="Busque por publicação"
+						onChange={handleOnChangeQuery}
+					/>
 				</PostSearchForm>
 
 				<PostsList>
