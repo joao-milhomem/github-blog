@@ -7,6 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { useEffect, useState } from 'react'
+import { gitUserApi } from '../../libs/axios'
 
 interface GitProfileProps {
 	id: number
@@ -22,6 +23,21 @@ const Profile = () => {
 	const [gitProfileData, setGitProfileData] = useState({} as GitProfileProps)
 
 	async function fetchGitProfileData() {
+		const { data } = await gitUserApi.get('/joaomilhomem')
+
+		if (data) {
+			const userData: GitProfileProps = {
+				id: data.id,
+				name: data.name,
+				login: data.login,
+				followers: data.followers,
+				company: data.company,
+				avatar_url: data.avatar_url,
+				bio: data.bio,
+			}
+			setGitProfileData(userData)
+		}
+
 		await fetch('https://api.github.com/users/joaomilhomem')
 			.then((response) => response.json())
 			.then((data) => {
