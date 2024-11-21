@@ -1,27 +1,50 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Header } from '../../components/Header'
+import { CodeArea, PostDetails, PostMain } from './style'
+import {
+	faArrowUpRightFromSquare,
+	faCalendarDay,
+	faChevronLeft,
+	faComment,
+} from '@fortawesome/free-solid-svg-icons'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
 export const Post = () => {
 	return (
 		<div>
 			<Header />
 
-			<section>
+			<PostDetails>
 				<nav>
-					<a href="/">Voltar</a>
-					<a href="/post">Ver no github</a>
+					<a href="/">
+						<FontAwesomeIcon icon={faChevronLeft} size="sm" />
+						Voltar
+					</a>
+					<a href="/post">
+						Ver no github
+						<FontAwesomeIcon icon={faArrowUpRightFromSquare} size="sm" />
+					</a>
 				</nav>
 
 				<h1>JavaScript data types and data structures</h1>
 
-				<footer>
-					<span>User</span>
-					<time dateTime="2022-01-01">há 1 semana</time>
-					<span>5 comentários</span>
+				<footer className="badges">
+					<span>
+						<FontAwesomeIcon icon={faGithub} />
+						User
+					</span>
+					<time dateTime="2022-01-01">
+						<FontAwesomeIcon icon={faCalendarDay} />
+						há 1 semana
+					</time>
+					<span>
+						<FontAwesomeIcon icon={faComment} />5 comentários
+					</span>
 				</footer>
-			</section>
+			</PostDetails>
 
-			<main>
-				<section>
+			<PostMain>
+				<div className="content">
 					<p>
 						Programming languages all have built-in data structures, but these
 						often differ from one language to another. This article attempts to
@@ -38,18 +61,16 @@ export const Post = () => {
 						type, and any variable can be assigned (and re-assigned) values of
 						all types:
 					</p>
-				</section>
+				</div>
 
-				<section>
-					<pre>
-						<code>
-							let foo = 42;{'   '}// foo is now a number <br />
-							foo = "bar"; {'   '}// foo is now a string <br />
-							foo = true; {'   '}// foo is now a boolean <br />
-						</code>
-					</pre>
-				</section>
-			</main>
+				<CodeArea>
+					<code>
+						let foo = 42;{'   '}// foo is now a number <br />
+						foo = "bar"; {'   '}// foo is now a string <br />
+						foo = true; {'   '}// foo is now a boolean <br />
+					</code>
+				</CodeArea>
+			</PostMain>
 		</div>
 	)
 }

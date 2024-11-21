@@ -13,7 +13,13 @@ export default createGlobalStyle`
     }
 
     a{
+        color: ${(props) => props.theme.PRIMARY};
         text-decoration: none;
+        border: 1px solid transparent;
+
+        &:hover {
+            border-bottom: 1px solid ${(props) => props.theme.PRIMARY};
+        }   
     }
 
     body,input,button {
