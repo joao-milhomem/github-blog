@@ -23,7 +23,7 @@ const Profile = () => {
 	const [gitProfileData, setGitProfileData] = useState({} as GitProfileProps)
 
 	async function fetchGitProfileData() {
-		const { data } = await gitUserApi.get('/joaomilhomem')
+		const { data } = await gitUserApi.get('/joao-milhomem')
 
 		if (data) {
 			const userData: GitProfileProps = {
@@ -37,22 +37,6 @@ const Profile = () => {
 			}
 			setGitProfileData(userData)
 		}
-
-		await fetch('https://api.github.com/users/joaomilhomem')
-			.then((response) => response.json())
-			.then((data) => {
-				const profileData: GitProfileProps = {
-					id: data.id,
-					name: data.name,
-					login: data.login,
-					followers: data.followers,
-					company: data.company,
-					avatar_url: data.avatar_url,
-					bio: data.bio,
-				}
-
-				setGitProfileData(profileData)
-			})
 	}
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -82,7 +66,7 @@ const Profile = () => {
 
 					<span>
 						<FontAwesomeIcon icon={faBuilding} />
-						{gitProfileData.company}
+						{gitProfileData.company ?? '-'}
 					</span>
 
 					<span>

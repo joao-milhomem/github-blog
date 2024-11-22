@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Header } from '../../components/Header'
-import { CodeArea, PostDetails, PostMain } from './style'
+import { PostDetails, PostMain } from './style'
 import {
 	faArrowUpRightFromSquare,
 	faCalendarDay,
@@ -8,8 +8,38 @@ import {
 	faComment,
 } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { issueDataApi } from '../../libs/axios'
+import Markdown from 'react-markdown'
+
+interface IssueProps {
+	id: number
+	title: string
+	body: string
+	created_at: string
+	comments: number
+	user: {
+		login: string
+	}
+}
 
 export const Post = () => {
+	const [issueData, setIssueData] = useState<IssueProps>()
+
+	const { number } = useParams()
+
+	useEffect(() => {
+		async function getIssueData() {
+			const { data } = await issueDataApi.get(`/${number}`)
+			setIssueData(data)
+		}
+
+		getIssueData()
+	}, [number])
+
+	console.log(issueData)
+
 	return (
 		<div>
 			<Header />
@@ -26,50 +56,28 @@ export const Post = () => {
 					</a>
 				</nav>
 
-				<h1>JavaScript data types and data structures</h1>
+				{issueData?.title && <h1>{issueData.title}</h1>}
 
 				<footer className="badges">
 					<span>
 						<FontAwesomeIcon icon={faGithub} />
-						User
+						{issueData?.user.login}
 					</span>
 					<time dateTime="2022-01-01">
 						<FontAwesomeIcon icon={faCalendarDay} />
-						há 1 semana
+						{issueData?.created_at}
 					</time>
 					<span>
-						<FontAwesomeIcon icon={faComment} />5 comentários
+						<FontAwesomeIcon icon={faComment} />
+						{issueData?.comments}
 					</span>
 				</footer>
 			</PostDetails>
 
 			<PostMain>
 				<div className="content">
-					<p>
-						Programming languages all have built-in data structures, but these
-						often differ from one language to another. This article attempts to
-						list the built-in data structures available in JavaScript and what
-						properties they have. These can be used to build other data
-						structures. Wherever possible, comparisons with other languages are
-						drawn.
-					</p>
-
-					<p>
-						<a href="123">Dynamic typing</a> <br />
-						JavaScript is a loosely typed and dynamic language. Variables in
-						JavaScript are not directly associated with any particular value
-						type, and any variable can be assigned (and re-assigned) values of
-						all types:
-					</p>
+					<Markdown>{issueData?.body}</Markdown>
 				</div>
-
-				<CodeArea>
-					<code>
-						let foo = 42;{'   '}// foo is now a number <br />
-						foo = "bar"; {'   '}// foo is now a string <br />
-						foo = true; {'   '}// foo is now a boolean <br />
-					</code>
-				</CodeArea>
 			</PostMain>
 		</div>
 	)

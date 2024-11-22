@@ -5,9 +5,9 @@ interface Post {
 	issue: IssueProps
 }
 
-export const Post = ({ issue }: Post) => {
+export const PostItem = ({ issue }: Post) => {
 	return (
-		<PostComponent>
+		<PostComponent to={`/issues/${issue.number}`}>
 			<header>
 				<h3>{issue.title}</h3>
 				<time dateTime="2022-01-01">há 1 semana</time>

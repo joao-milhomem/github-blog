@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-export const PostComponent = styled.a`
+export const PostComponent = styled(Link)`
     display: block;
     width: 100%;
     max-width: 416px;
@@ -9,9 +10,11 @@ export const PostComponent = styled.a`
     
     border: 2px solid transparent;
     background-color: ${(props) => props.theme.DARK_4};
+    cursor: pointer;
 
     &:hover {
         outline: 2px solid ${(props) => props.theme.LIGHT_1};
+        border:2px solid transparent;
     }
 
     &:focus {

@@ -2,11 +2,12 @@ import { Header } from '../../components/Header'
 import { PostsComponent, PostSearchForm, PostsList } from './style'
 import Profile from '../../components/Profile'
 import { type ChangeEvent, useEffect, useState } from 'react'
-import { Post } from '../../components/Post'
 import { gitIssuesApi } from '../../libs/axios'
+import { PostItem } from '../../components/PostItem'
 
 export interface IssueProps {
 	id: number
+	number: number
 	title: string
 	body: string
 	created_at: string
@@ -77,7 +78,7 @@ export const Home = () => {
 						issues.map((issue) => {
 							return (
 								<li key={issue.id}>
-									<Post issue={issue} />
+									<PostItem issue={issue} />
 								</li>
 							)
 						})}
