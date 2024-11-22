@@ -2,7 +2,7 @@ import { Header } from '../../components/Header'
 import { PostsComponent, PostSearchForm, PostsList } from './style'
 import Profile from '../../components/Profile'
 import { type ChangeEvent, useEffect, useState } from 'react'
-import { gitIssuesApi } from '../../libs/axios'
+import { GithubAPIs } from '../../libs/axios'
 import { PostItem } from '../../components/PostItem'
 
 export interface IssueProps {
@@ -17,13 +17,13 @@ export const Home = () => {
 	const [issues, setIssues] = useState<IssueProps[]>([])
 	const [query, setQuery] = useState('')
 
-	function handleOnChangeQuery(e: ChangeEvent<HTMLInputElement>) {
+	function handleOnChangeInputQuery(e: ChangeEvent<HTMLInputElement>) {
 		setQuery(e.target.value)
 	}
 
-	async function fetchIssues(query?: string) {
+	async function getIssues(query?: string) {
 		if (query) {
-			const { data } = await gitIssuesApi.get('', {
+			const { data } = await GithubAPIs.issues.get('', {
 				params: {
 					q: `${query} repo:joao-milhomem/github-blog`,
 				},
@@ -33,7 +33,7 @@ export const Home = () => {
 				setIssues(data.items)
 			}
 		} else {
-			const { data } = await gitIssuesApi.get('', {
+			const { data } = await GithubAPIs.issues.get('', {
 				params: {
 					q: 'repo:joao-milhomem/github-blog',
 				},
@@ -47,7 +47,7 @@ export const Home = () => {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		fetchIssues(query)
+		getIssues(query)
 	}, [query])
 
 	return (
@@ -69,7 +69,7 @@ export const Home = () => {
 					<input
 						type="text"
 						placeholder="Busque por publicação"
-						onChange={handleOnChangeQuery}
+						onChange={handleOnChangeInputQuery}
 					/>
 				</PostSearchForm>
 

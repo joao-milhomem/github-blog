@@ -7,7 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { useEffect, useState } from 'react'
-import { gitUserApi } from '../../libs/axios'
+import { GithubAPIs } from '../../libs/axios'
 
 interface GitProfileProps {
 	id: number
@@ -22,8 +22,8 @@ interface GitProfileProps {
 const Profile = () => {
 	const [gitProfileData, setGitProfileData] = useState({} as GitProfileProps)
 
-	async function fetchGitProfileData() {
-		const { data } = await gitUserApi.get('/joao-milhomem')
+	async function getGitProfileData() {
+		const { data } = await GithubAPIs.profileData.get('/joao-milhomem')
 
 		if (data) {
 			const userData: GitProfileProps = {
@@ -41,7 +41,7 @@ const Profile = () => {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		fetchGitProfileData()
+		getGitProfileData()
 	}, [])
 
 	return (
@@ -51,7 +51,11 @@ const Profile = () => {
 			<ProfileContent className="profile-content">
 				<header>
 					<strong>{gitProfileData.name}</strong>
-					<a href="github.com">
+					<a
+						href={`https://github.com/${gitProfileData.login}`}
+						target="_blank"
+						rel="noreferrer"
+					>
 						Github <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
 					</a>
 				</header>

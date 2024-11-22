@@ -10,7 +10,7 @@ export const PostItem = ({ issue }: Post) => {
 		<PostComponent to={`/issues/${issue.number}`}>
 			<header>
 				<h3>{issue.title}</h3>
-				<time dateTime="2022-01-01">há 1 semana</time>
+				<time dateTime={issue.created_at}>{issue.created_at}</time>
 			</header>
 
 			<p className="content">{issue.body}</p>

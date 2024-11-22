@@ -8,37 +8,33 @@ import {
 	faComment,
 } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
-import { useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { issueDataApi } from '../../libs/axios'
+import { GithubAPIs } from '../../libs/axios'
 import Markdown from 'react-markdown'
+import type { IssueProps } from '../Home'
 
-interface IssueProps {
-	id: number
-	title: string
-	body: string
-	created_at: string
-	comments: number
+interface Issue extends IssueProps {
+	comments: string
 	user: {
 		login: string
 	}
 }
-
-export const Post = () => {
-	const [issueData, setIssueData] = useState<IssueProps>()
+export const PostContent = () => {
+	const [issueData, setIssueData] = useState<Issue>()
 
 	const { number } = useParams()
 
+	const navigate = useNavigate()
+
 	useEffect(() => {
 		async function getIssueData() {
-			const { data } = await issueDataApi.get(`/${number}`)
+			const { data } = await GithubAPIs.issueData.get(`/${number}`)
 			setIssueData(data)
 		}
 
 		getIssueData()
 	}, [number])
-
-	console.log(issueData)
 
 	return (
 		<div>
@@ -46,11 +42,15 @@ export const Post = () => {
 
 			<PostDetails>
 				<nav>
-					<a href="/">
+					<Link to="" type="button" onClick={() => navigate(-1)}>
 						<FontAwesomeIcon icon={faChevronLeft} size="sm" />
 						Voltar
-					</a>
-					<a href="/post">
+					</Link>
+					<a
+						href={`https://github.com/joao-milhomem/github-blog/issues/${number}`}
+						target="_blank"
+						rel="noreferrer"
+					>
 						Ver no github
 						<FontAwesomeIcon icon={faArrowUpRightFromSquare} size="sm" />
 					</a>
