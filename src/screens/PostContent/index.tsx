@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react'
 import { GithubAPIs } from '../../libs/axios'
 import Markdown from 'react-markdown'
 import type { IssueProps } from '../Home'
-import { dateFormatter } from '../../utils/formatter'
+import { calcDateInterval } from '../../utils/formatter'
 
 interface Issue extends IssueProps {
 	comments: string
@@ -26,7 +26,7 @@ export const PostContent = () => {
 	const { number } = useParams()
 	const navigate = useNavigate()
 
-	const formattedDate = dateFormatter(issueData?.created_at || '')
+	const date = issueData?.created_at && calcDateInterval(issueData?.created_at)
 
 	useEffect(() => {
 		async function getIssueData() {
@@ -66,7 +66,7 @@ export const PostContent = () => {
 					</span>
 					<time dateTime="2022-01-01">
 						<FontAwesomeIcon icon={faCalendarDay} />
-						{formattedDate}
+						{date}
 					</time>
 					<span>
 						<FontAwesomeIcon icon={faComment} />
